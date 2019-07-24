@@ -88,3 +88,16 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+FEED_EXPORTERS = {
+    'csv': 'tutorial.tutorial_csv_item_exporter.MyProjectCsvItemExporter',
+}
+
+FIELDS_TO_EXPORT = [
+    'title',
+    'author',
+    'tag'
+]
+
+CSV_DELIMITER = ";"
