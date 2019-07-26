@@ -5,6 +5,7 @@ class QuoteSpider(scrapy.Spider):
     start_urls = [
         'http://quotes.toscrape.com/'
     ]
+    next_page_nr = 2
     
     def parse(self, response):
         # Create instance
@@ -25,7 +26,8 @@ class QuoteSpider(scrapy.Spider):
             # return items
             yield items
             
-            next_page = response.css("li.next a::attr(href)")
+            next_page = 'http://quotes.toscrape.com/{}/'.format(QuoteSpider.next_page_nr)
             
-            if next_page is not None:
+            if QuoteSpider.next_page_nr < 11:
+                QuoteSpider.next_page_nr += 1
                 yield response.follow(next_page, callback = self.parse)
