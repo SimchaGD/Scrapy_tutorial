@@ -1,7 +1,7 @@
 import scrapy
 from ..items import TutorialItem
 class QuoteSpider(scrapy.Spider):
-    name = 'quotes_items'
+    name = 'quotes_multipage'
     start_urls = [
         'http://quotes.toscrape.com/'
     ]
@@ -24,3 +24,8 @@ class QuoteSpider(scrapy.Spider):
             
             # return items
             yield items
+            
+            next_page = response.css("li.next a::attr(href)")
+            
+            if next_page is not None:
+                yield response.follow(next_page, callback = self.parse)
