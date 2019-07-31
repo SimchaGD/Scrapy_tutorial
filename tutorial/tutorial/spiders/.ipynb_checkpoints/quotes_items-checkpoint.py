@@ -7,7 +7,7 @@ class QuoteSpider(scrapy.Spider):
     ]
     
     def parse(self, response):
-        
+        # Create instance
         items = TutorialItem()
         
         all_div_quotes = response.css("div.quote")
@@ -17,8 +17,10 @@ class QuoteSpider(scrapy.Spider):
             author = quotes.css(".author::text").extract()
             tag = quotes.css(".tag::text").extract()
             
+            # add data to items container
             items["title"] = title
             items["author"] = author
             items["tag"] = tag
             
+            # return items
             yield items
